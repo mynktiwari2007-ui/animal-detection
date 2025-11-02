@@ -1,13 +1,15 @@
-ultralytics
-opencv-python-headless
+ultralytics==8.3.24
+opencv-python-headless==4.10.0.84
 torch
 torchvision
-streamlit
-streamlit-webrtc
-streamlit-option-menu
+streamlit==1.39.0
+streamlit-webrtc==0.47.7
+streamlit-option-menu==0.3.12
 Pillow
 numpy
 av
+
+
 
 
 
