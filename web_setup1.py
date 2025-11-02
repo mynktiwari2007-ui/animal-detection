@@ -7,6 +7,8 @@ import numpy as np
 from PIL import Image
 import tempfile
 from streamlit_option_menu import option_menu
+import cv2
+st.write("OpenCV version:", cv2.__version__)
 
 # --------------------------- PAGE CONFIG --------------------------- #
 st.set_page_config(page_title="Animals Detection", page_icon="🤖", layout="wide")
@@ -106,6 +108,7 @@ h1 {
 }
 </style>
 """, unsafe_allow_html=True)
+
 
 
 
