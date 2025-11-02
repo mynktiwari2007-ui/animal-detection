@@ -19,21 +19,10 @@ with st.sidebar:
     confidence = st.slider("Detection Confidence", 0.1, 1.0, 0.5, 0.05)
 
     st.markdown("---")
-    st.subheader("🎥 Camera Settings")
-
-    # ✅ Camera switch option
-    cam_index = st.selectbox(
-        "Select Camera",
-        options=[0, 1, 2, 3],
-        format_func=lambda x: f"Camera {x}",
-        help="Try switching if your external webcam isn’t showing up."
-    )
-
-    st.markdown("---")
     st.caption("Developed by Mayank Sharma using YOLOv11 + Streamlit")
 
 # --------------------------- LOAD MODEL --------------------------- #
-model = YOLO("yolo11n_custom.pt")  # 🔁 Replace with your trained model path
+model = YOLO("yolo11n_custom.pt")  # Replace with your trained model path
 
 # --------------------------- HEADER --------------------------- #
 st.markdown("<h1 style='text-align:center;'>🧠 YOLOv11 Animals Detection Dashboard</h1>", unsafe_allow_html=True)
@@ -61,7 +50,6 @@ if selected == "Upload Image":
 
         st.image(annotated_frame, channels="BGR", use_column_width=True)
 
-        # Display detected classes
         classes = results[0].boxes.cls
         if len(classes) > 0:
             detected = [model.names[int(c)] for c in classes]
@@ -70,40 +58,22 @@ if selected == "Upload Image":
         else:
             st.warning("No objects detected.")
 
-# --------------------------- WEBCAM MODE --------------------------- #
+# --------------------------- WEBCAM MODE (WORKS ONLINE) --------------------------- #
 elif selected == "Use Webcam":
-    if "run_webcam" not in st.session_state:
-        st.session_state.run_webcam = False
+    st.markdown("### 🎥 Live Animal Detection")
 
-    start_btn = st.button("▶ Start Webcam")
-    stop_btn = st.button("⛔ Stop Webcam")
+    class VideoProcessor(VideoTransformerBase):
+        def transform(self, frame):
+            img = frame.to_ndarray(format="bgr24")
+            results = model(img, conf=confidence)
+            annotated = results[0].plot()
+            return av.VideoFrame.from_ndarray(annotated, format="bgr24")
 
-    if start_btn:
-        st.session_state.run_webcam = True
-    if stop_btn:
-        st.session_state.run_webcam = False
-
-    stframe = st.empty()
-
-    if st.session_state.run_webcam:
-        cap = cv2.VideoCapture(cam_index)
-
-        if not cap.isOpened():
-            st.error(f"⚠️ Could not open Camera {cam_index}. Try another one.")
-        else:
-            st.info(f"📷 Using Camera {cam_index}")
-            while st.session_state.run_webcam:
-                ret, frame = cap.read()
-                if not ret:
-                    st.warning("⚠️ Unable to access webcam feed.")
-                    break
-
-                results = model(frame, conf=confidence)
-                annotated_frame = results[0].plot()
-                stframe.image(annotated_frame, channels="BGR", use_column_width=True)
-
-            cap.release()
-            st.success("✅ Webcam stopped successfully.")
+    webrtc_streamer(
+        key="animal-detect",
+        video_transformer_factory=VideoProcessor,
+        media_stream_constraints={"video": True, "audio": False},
+    )
 
 # --------------------------- STYLE SECTION --------------------------- #
 st.markdown("""
@@ -136,6 +106,8 @@ h1 {
 }
 </style>
 """, unsafe_allow_html=True)
+
+
 
 
 
