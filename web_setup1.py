@@ -29,7 +29,7 @@ with st.sidebar:
     st.caption("Developed by Mayank Sharma using YOLOv11 + Streamlit")
 
 # --------------------------- LOAD MODEL --------------------------- #
-model = YOLO("D:/yolo11/yolo11n_custom.pt")  # 🔁 Replace with your trained model path
+model = YOLO("yolo11n_custom.pt")  # 🔁 Replace with your trained model path
 
 # --------------------------- HEADER --------------------------- #
 st.markdown("<h1 style='text-align:center;'>🧠 YOLOv11 Animals Detection Dashboard</h1>", unsafe_allow_html=True)
@@ -132,5 +132,6 @@ h1 {
 }
 </style>
 """, unsafe_allow_html=True)
+
 
 
