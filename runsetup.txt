@@ -1,0 +1,1 @@
+streamlit run D:\yolo11\web_setup1.py
