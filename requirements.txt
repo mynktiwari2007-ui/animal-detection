@@ -1,10 +1,13 @@
 ultralytics
+opencv-python-headless
 torch
 torchvision
 streamlit
 streamlit-webrtc
-opencv-python-headless
-numpy
+streamlit-option-menu
 Pillow
+numpy
+av
+
 
 
