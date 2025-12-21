@@ -1,6 +1,3 @@
-train: D:\yolo11\train
-val: D:\yolo11\valid
-test: D:\yolo11\test
-
+model = YOLO("yolo11n_custom.pt")
 nc: 20
 names: ['Bear', 'Brown-bear', 'Bull', 'Cheetah', 'Crocodile', 'Deer', 'Elephant', 'Fox', 'Giraffe', 'Hippopotamus', 'Horse', 'Kangaroo', 'Lion', 'Monkey', 'Mule', 'Panda', 'Rhinoceros', 'Tiger', 'Zebra', 'human']
