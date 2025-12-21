@@ -1,13 +1,8 @@
 import streamlit as st
+import cv2
 from ultralytics import YOLO
-from streamlit_webrtc import webrtc_streamer, VideoTransformerBase
-import av
-##import cv2
-import numpy as np
-from PIL import Image
 import tempfile
 from streamlit_option_menu import option_menu
-
 # --------------------------- PAGE CONFIG --------------------------- #
 st.set_page_config(page_title="Animals Detection", page_icon="🤖", layout="wide")
 
@@ -136,6 +131,7 @@ h1 {
 }
 </style>
 """, unsafe_allow_html=True)
+
 
 
 
