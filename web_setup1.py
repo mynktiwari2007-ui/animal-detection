@@ -2,7 +2,7 @@ import streamlit as st
 from ultralytics import YOLO
 from streamlit_webrtc import webrtc_streamer, VideoTransformerBase
 import av
-import cv2
+##import cv2
 import numpy as np
 from PIL import Image
 import tempfile
@@ -136,6 +136,7 @@ h1 {
 }
 </style>
 """, unsafe_allow_html=True)
+
 
 
 
